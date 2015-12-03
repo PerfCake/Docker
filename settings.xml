@@ -36,6 +36,6 @@
       </pluginRepositories>
    </profiles>
    <activeProfiles>
-      <activeProfile>jboss-public-repository</activeProfile>
+      <activeProfile>jboss-public-repository-group</activeProfile>
    </activeProfiles>
 </settings>
