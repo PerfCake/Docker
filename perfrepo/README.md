@@ -20,6 +20,6 @@ CONTAINER ID        IMAGE                               COMMAND                 
 baaeacfd98f5        perfcake/perfrepo-postgresql:v1.4   "/usr/bin/postgres -D"   35 minutes ago      Up 35 minutes       5432/tcp                  perfrepo-db
 ```
 
-* PerfRepo should be running on the port found in the previous step (e.g. 5000) `http://localhost:5000`. The default user and password are:
+* PerfRepo should be running on the port set in the previous step (e.g. 5000) `http://localhost:5000`. The default user and password are:
 	* login: `perfrepouser`
 	* password: `perfrepouser1.`
