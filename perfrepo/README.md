@@ -7,12 +7,12 @@
 $ docker run -d --name perfrepo-db perfcake/perfrepo-postgresql:v1.4
 ```
 
-* Start PerfRepo container at a specific port (e.g. 5000) and link it with the previously created DB container (the link alias has to be "perfrepo-db").:
+* Start PerfRepo container at a specific port (e.g. 5000) and link it with the previously created DB container (the link alias needs to be "perfrepo-db"):
 ```sh
 $ docker run -d -p 5000:8080 --name perfrepo --link perfrepo-db perfcake/perfrepo:v1.4
 ```
 
-* Determine PerfRepo's port number:
+* Verify the docker containers are running:
 ```sh
 $ docker ps
 CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                     NAMES
