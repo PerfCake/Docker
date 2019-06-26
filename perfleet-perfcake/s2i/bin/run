@@ -1,0 +1,10 @@
+#!/bin/bash -e
+#
+# S2I run script for the 'perfleet-perfcake' image.
+# The run script executes the server that runs your application.
+#
+# For more information see the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk /opt/app-root/bin/perfcake.sh -s perfleet-worker-scenario

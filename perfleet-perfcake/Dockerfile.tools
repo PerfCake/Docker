@@ -1,0 +1,7 @@
+# perfleet-perfcake-tools
+FROM openshift/base-centos7
+
+LABEL maintainer="Pavel Macik <pavel.macik@gmail.com>"
+
+RUN yum install -y dnf java-11-openjdk-devel java-11-openjdk-headless maven \
+    && yum clean all -y

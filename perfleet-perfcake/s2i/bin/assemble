@@ -1,0 +1,35 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'perfleet-perfcake' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# If the 'perfleet-perfcake' assemble script is executed with the '-h' flag, print the usage.
+if [[ "$1" == "-h" ]]; then
+	exec /usr/libexec/s2i/usage
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts..."
+  mv /tmp/artifacts/. ./
+fi
+
+echo "---> Installing application source..."
+git clone --depth=1 --branch='feature/#392-jdk11' http://github.com/PerfCake/PerfCake /opt/app-root/src/PerfCake
+
+echo "---> Building application from source..."
+MAVEN_OPTS="-Dmaven.repo.local=/opt/app-root/src/maven-repo" JAVA_HOME=/usr/lib/jvm/java-11-openjdk mvn -f /opt/app-root/src/PerfCake/pom.xml clean package assembly:single -DskipTests
+
+unzip -d /opt/app-root/ /opt/app-root/src/PerfCake/perfcake/target/perfcake-*-bin.zip
+mv -vf /opt/app-root/perfcake-*/* /opt/app-root
+
+# Clean
+dnf remove -y maven java-11-openjdk-devel
+dnf autoremove -y
+rm -rvf /opt/app-root/src/
+rm -rvf /opt/app-root/perfcake-*/

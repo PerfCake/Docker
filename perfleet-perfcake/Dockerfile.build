@@ -1,0 +1,27 @@
+FROM perfleet-perfcake-tools:latest
+
+LABEL maintainer="Pavel Macik <pavel.macik@gmail.com>"
+
+# TODO: Rename the builder environment variable to inform users about application you provide them
+ENV PERFLEET_PERFCAKE_VERSION 0.0.1
+
+# TODO: Set labels used in OpenShift to describe the builder image
+LABEL io.k8s.description="PerfCake worker for PerFleet v0.0.1" \
+      io.k8s.display-name="perfleet-perfcake 0.0.1" \
+      io.openshift.tags="perfcake,perfleet,0.0.1"
+
+# sets io.openshift.s2i.scripts-url label that way, or update that label
+COPY ./s2i/bin/ /usr/libexec/s2i
+
+
+# TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
+#RUN chown -R 1001:1001 /opt/app-root
+
+# This default user is created in the openshift/base-centos7 image
+#USER 1001
+
+# TODO: Set the default port for applications built using this image
+# EXPOSE 8080
+
+# TODO: Set the default CMD for the image
+CMD ["/usr/libexec/s2i/run"]
